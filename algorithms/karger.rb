@@ -1,26 +1,31 @@
 require_relative '../graphs/multigraph.rb'
+=begin
+Karger's algorithm
+
+computes a minumum cut of a connected graph
+
+takes undirected multigraph
+=end
 
 def kargerMinCut(g)
   while g.length > 2
-    node1 = g.nodes.keys.sample
+    node1 = g.adj.keys.sample
     node2 = g.children_of(node1).keys.sample
     e = [node1, node2]
     contract(g, node1, node2)
   end
-  g.edges[g.nodes[0]].length
+  node = g.adj.keys.first
+  g.adj[node].length
 end
 
 def contract(g, node1, node2)
-  g.edges[node2].each do |node|
-    g.edges[node1] << node if node != node1
-    g.edges[node].delete(node2)
-    g.edges[node] << node1 if node != node1
+  g.children_of(node2).each_key do |node|
+    g.add_edge(node1, node) if node != node1
+    g.remove_edge(node, node2)
+    g.add_edge(node, node1) if node != node1
   end
-  g.edges.delete(node2)
-end
-
-def deep_copy(o)
-  Marshal.load(Marshal.dump(o))
+  g.adj.delete(node2)
+  g.nodes.delete(node2)
 end
 
 if $PROGRAM_NAME == __FILE__
@@ -38,14 +43,14 @@ if $PROGRAM_NAME == __FILE__
     end
   end
 
-  puts g
+  # puts g
   # puts kargerMinCut(g)
-  # g_copy = deep_copy(g)
-  #
-  # n = g.nodes.length
-  # mincut = n
-  # (n ** 3).times do
-  #   mincut = kargerMinCut(g_copy) if kargerMinCut(g_copy) < mincut
-  # end
-  # p mincut
+  g_copy = g.deep_copy
+
+  n = g.length
+  mincut = n
+  (n ** 3).times do
+    mincut = kargerMinCut(g_copy) if kargerMinCut(g_copy) < mincut
+  end
+  p mincut
 end

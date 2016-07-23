@@ -70,7 +70,7 @@ MultiGraph
       @succ[u].delete(v)
       @pred[v].delete(u)
     else
-      raise "Edge #{u}-#{v} not in graph"
+      raise "Edge #{u}->#{v} not in graph"
     end
   end
 
@@ -91,5 +91,15 @@ MultiGraph
 
   def is_directed?
     true
+  end
+
+  def to_s
+    res = ''
+    @adj.each do |u, nbrs|
+      nbrs.each do |v, options|
+        res = "#{res}#{u}->#{v} #{options}\n"
+      end
+    end
+    res[0...-1]
   end
 end
