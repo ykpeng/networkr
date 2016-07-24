@@ -10,5 +10,4 @@ require "networkr/algorithms/kosaraju"
 require "networkr/algorithms/prim"
 
 module Networkr
-  # Your code goes here...
 end
