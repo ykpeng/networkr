@@ -9,37 +9,44 @@ class BinaryMinHeap
     @store.length
   end
 
-  def extract
-    raise "no element to extract" if count == 0
+  def pop
+    return nil if count == 0
 
-    self.class.swap!(@store, index_map, 0, count - 1)
+    self.class.swap!(@store, @index_map, 0, count - 1)
 
     val = @store.pop
-    index_map.delete(val)
+    @index_map.delete(val)
 
     unless count == 0
-      self.class.heapify_down(@store, index_map, 0, &prc)
+      self.class.heapify_down(@store, @index_map, 0, &prc)
     end
 
     val
   end
 
   def peek
-    raise "no element to peek" if count == 0
+    return nil if count == 0
     @store.first
   end
 
   def push(val)
     @store << val
-    self.class.heapify_up(@store, count - 1, &prc)
+    @index_map[val] = count - 1
+    self.class.heapify_up(@store, @index_map, count - 1, &prc)
+  end
+
+  def reduce!(val)
+    index = @index_map[val]
+    self.class.heapify_up(@store, @index_map, index, &prc)
   end
 
   protected
-  attr_accessor :prc, :store
+  attr_accessor :prc, :store, :index_map
 
   public
-  def self.swap!(array, i1, i2)
+  def self.swap!(array, index_map, i1, i2)
     array[i1], array[i2] = array[i2], array[i1]
+    index_map[parent_val], index_map[child_val] = child_idx, parent_idx
   end
 
   def self.child_indices(len, parent_index)
@@ -48,13 +55,13 @@ class BinaryMinHeap
 
   def self.parent_index(child_index)
     if child_index == 0
-      raise "root has no parent"
+      return nil
     else
       (child_index - 1) / 2
     end
   end
 
-  def self.heapify_down(array, parent_idx, len = array.length, &prc)
+  def self.heapify_down(array, index_map, parent_idx, len = array.length, &prc)
     prc ||= Proc.new { |a, b| a <=> b }
 
     while parent_idx <= parent_index(len - 1)
@@ -73,7 +80,7 @@ class BinaryMinHeap
       end
 
       if prc.call(array[parent_idx], array[smallest_child_idx]) > 0
-        swap!(array, parent_idx, smallest_child_idx)
+        swap!(array, index_map, parent_idx, smallest_child_idx)
         parent_idx = smallest_child_idx
       else
         break
@@ -91,7 +98,7 @@ class BinaryMinHeap
       parent_idx = parent_index(child_idx)
 
       if prc.call(array[parent_idx], array[child_idx]) > 0
-        swap!(array, parent_idx, child_idx)
+        swap!(array, index_map, parent_idx, child_idx)
         child_idx = parent_idx
       else
         break

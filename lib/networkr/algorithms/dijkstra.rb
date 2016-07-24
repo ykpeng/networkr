@@ -2,9 +2,10 @@ require_relative "../graphs/graph.rb"
 # dijkstra
 # single-source shortest path
 
-#Takes undirected, weighted graph
+#Takes undirected, weighted graph, nonnegative weights
+# O(|V|**2)
 
-def dijkstra_shortest_path(source_node, g)
+def dijkstra(source_node, g)
   nodes_processed = [source_node]
   shortest_path_distances = {}
   shortest_path_distances[source_node] = 0
@@ -30,10 +31,10 @@ def dijkstra_shortest_path(source_node, g)
   shortest_path_distances
 end
 
-def dijkstra_shortest_path_target(source_node, g, target)
-  shortest_path_distances = dijkstra_shortest_path(source_node, g)
-  shortest_path_distances[target]
-end
+# def dijkstra_target(source_node, g, target)
+#   shortest_path_distances = dijkstra(source_node, g)
+#   shortest_path_distances[target]
+# end
 
 if $PROGRAM_NAME == __FILE__
   lines = File.readlines("test1.txt")
@@ -50,5 +51,5 @@ if $PROGRAM_NAME == __FILE__
     end
   end
 
-  puts dijkstra_shortest_path(1, g)
+  puts dijkstra(1, g)
 end
