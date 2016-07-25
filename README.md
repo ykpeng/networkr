@@ -1,4 +1,4 @@
-# Networkr
+# Networkr [![Gem Version](https://badge.fury.io/rb/networkr.svg)](https://badge.fury.io/rb/networkr)
 
 Networkr is a Ruby gem inspired by the Python package NetworkX. It includes basic functionality for the creation, manipulation, and analysis of graphs.
 
