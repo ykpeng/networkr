@@ -9,8 +9,12 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Yi-Ke Peng"]
   spec.email         = ["yi.ke.peng@gmail.com"]
 
-  spec.summary       = %q{NetworkR}
-  spec.description   = %q{A gem for creating and manipulating graphs in Ruby.}
+  spec.summary       = %q{Create and manipulate graphs}
+  spec.description   = %q{Networkr is a Ruby gem inspired by the Python package NetworkX. It includes basic functionality for the creation, manipulation, and analysis of graphs.
+
+  Graphs supported include undirected single-edge graphs (weighted or unweighted), directed single-edge graphs (weighted or unweighted), and undirected multi-edge graphs (weighted or unweighted).
+
+  Algorithms available include Dijkstra's shortest paths, Karger's minimum cut, Kosaraju's strongly connected components, and Prim's minimum spanning tree.}
   spec.homepage      = "http://github.com/ykpeng/networkr"
   spec.license       = "MIT"
   spec.metadata["yard.run"] = "yri" # use "yard" to build full HTML docs.
