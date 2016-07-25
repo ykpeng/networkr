@@ -1,36 +1,31 @@
-# require_relative "graph.rb"
-=begin
-Class for undirected graphs that can store parallel edges.
-
-A MultiGraph holds undirected edges. Self loops are allowed.
-
-See Also
---------
-Graph
-DiGraph
-=end
-
 module Networkr
+
+  # Class for undirected graphs that can store parallel edges.
+  #
+  # A MultiGraph holds undirected edges. Self loops are allowed.
+  #
+  # See Also
+  # --------
+  # Graph
+  # DiGraph
   class MultiGraph < Graph
+
+    # returns an unused key for edges between nodes 'u' and 'v'.
+    #
+    # The nodes 'u' and 'v' do not need to be already in the graph.
+    #
+    # Notes
+    # -----
+    # The new key is the number of existing edges between 'u' and 'v', increased if necessary to ensure uniqueness. The first edge will have key 0, the second edge 1, etc. If an edge is removed, new keys may not be in this order.
+    #
+    # Parameters
+    # ----------
+    # u, v: nodes
+    #
+    # Returns
+    # -------
+    # key: int
     def new_edge_key(u, v)
-=begin
-return an unused key for edges between nodes 'u' and 'v'.
-
-The nodes 'u' and 'v' do not need to be already in the graph.
-
-Notes
------
-
-The new key is the number of existing edges between 'u' and 'v', increased if necessary to ensure uniqueness. The first edge will have key 0, the second edge 1, etc. If an edge is removed, new keys may not be in this order.
-
-Parameters
-----------
-u, v: nodes
-
-Returns
--------
-key: int
-=end
       if @adj[u] && @adj[u][v]
         keys = @adj[u][v]
         key = keys.length

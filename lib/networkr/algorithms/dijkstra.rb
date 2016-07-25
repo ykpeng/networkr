@@ -1,10 +1,12 @@
-# dijkstra
-# single-source shortest path
-
-#Takes undirected, weighted graph, nonnegative weights
-# O(|V|**2)
-
 module Networkr
+
+  # Dijkstra's algorithm for computing the shortest paths from a single source.
+  #
+  # @param g [Networkr::Graph] an undirected, weighted graph. Weights must be non-negative.
+  # @param source_node node in the graph, can be any hashable object
+  # @return [Hash] with destination nodes as keys and distances as values
+  #
+  # Complexity: O(|V|**2)
   class << self
     def dijkstra(g, source_node)
       nodes_processed = [source_node]

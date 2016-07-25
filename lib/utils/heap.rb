@@ -1,7 +1,7 @@
 class BinaryMinHeap
   def initialize(&prc)
     @store = []
-    @index_map {}
+    @index_map = {}
     @prc = prc || Proc.new { |a, b| a <=> b }
   end
 

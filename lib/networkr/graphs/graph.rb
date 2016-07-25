@@ -1,12 +1,14 @@
+module Networkr
+
 # Class for undirected graphs.
 #
 # A Graph stores nodes and edges with optional attributes.
 #
-# Graphs hold undirected edges. Self loops are allowed but parallel  edges are not.
+# Graphs hold undirected edges. Self loops are allowed but parallel edges are not.
 #
 # Nodes can be arbitrary hashable Ruby objects with optional attributes.
 #
-# Edges are represented as links between nodes with option attributes.
+# Edges are represented as links between nodes with optional attributes.
 #
 # Parameters
 # ----------
@@ -15,12 +17,13 @@
 # See Also
 # --------
 # DiGraph
+# MultiGraph
 #
 # Examples
 # --------
 # Create an empty graph with no nodes and edges.
 #
-# >>> g = Graph()
+# >>> g = Networkr::Graph.new
 #
 # g can be grown in several ways
 #
@@ -36,7 +39,7 @@
 #
 # >>> g.add_edge(1, 2)
 #
-# If some edges connect nodes not yet in the graph, the nodes are added automatically. There are no erros when adding nodes or edges that already exist.
+# If some edges connect nodes not yet in the graph, the nodes are added automatically. There are no errors when adding nodes or edges that already exist.
 #
 # **Attributes:**
 #
@@ -55,7 +58,7 @@
 # >>> g.nodes[1][:score] = 10
 # >>> g.nodes[1].delete(:score) # remove attribute
 # >>> g.nodes
-# { 1: { username: "janedoe" }, 3: { username: "johndoe" } }
+# { 1 => { username: "janedoe" }, 3 => { username: "johndoe" } }
 #
 # Add/update edge attributes using add_edge or g.adj:
 #
@@ -63,21 +66,6 @@
 # >>> g.adj[1][2][:weight] = 4
 # >>> g.adj[1][2]
 # { weight: 4 }
-#
-# **Representation:**
-# :TODO
-# g.to_s
-#
-# 1-2 { weight: 4 }
-# 2-6 { weight: 10 }
-# 4-6 { weight: 8 }
-# 3-5 { weight: 5 }
-# 5-6 { weight: 1 }
-
-class NetworkrError < RuntimeError
-end
-
-module Networkr
   class Graph
     attr_accessor :graph, :nodes, :adj
 
@@ -180,4 +168,7 @@ module Networkr
       res[0...-1]
     end
   end
+end
+
+class NetworkrError < RuntimeError
 end

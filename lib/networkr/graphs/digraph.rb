@@ -1,16 +1,13 @@
-# require_relative "graph.rb"
-=begin
-Class for directed graphs.
-
-DiGraphs hold directed edges. Self loops are allowed but parallel edges are not.
-
-See Also
---------
-Graph
-MultiGraph
-=end
-
 module Networkr
+  
+  # Class for directed graphs.
+  #
+  # DiGraphs hold directed edges. Self loops are allowed but parallel edges are not.
+  #
+  # See Also
+  # --------
+  # Graph
+  # MultiGraph
   class DiGraph < Graph
 
     attr_accessor :pred, :succ
